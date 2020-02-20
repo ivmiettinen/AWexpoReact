@@ -1,4 +1,199 @@
-.App {
+@font-face {
+  font-family: 'Awesome';
+  src: url('./fonts/Awesome-Semibold.otf') format('opentype');
+}
+
+.DropdownMenu {
+  padding: 20px;
+  width: 25%;
+  display: block;
+}
+
+/* .AutoCompleteInput {
+} */
+
+.suggestion-active {
+  color: rgb(5, 212, 142);
+}
+
+.DropdownmenusButton {
+  color: rgb(5, 212, 142);
+  background-color: #049a78;
+}
+
+.DropdownmenusButton:hover {
+  background-color: #049a78;
+}
+
+.upRightPictureStyle {
+  padding: 20px;
+  position: absolute;
+  right: 0px;
+
+  width: 25%;
+  align: right;
+}
+
+/* upLeftPictureStyle
+DropdownMenu */
+
+.SearchField {
+  padding: 60px;
+  position: fixed;
+
+  left: 50%;
+  top: 0%;
+  text-align: center;
+}
+
+.DropdownMenu1 {
+  color: white;
+  background-color: #049a78;
+}
+
+.DropdownItem:hover {
+  background-color: rgb(5, 212, 142);
+}
+
+.DropdownToggle {
+  color: white;
+  background-color: #049a78;
+}
+
+.DropdownToggle:hover {
+  background-color: rgb(5, 212, 142);
+}
+
+.DropdownItem {
+  color: white;
+  background-color: #049a78;
+}
+
+.sideByside {
+  display: flex;
+  flex-direction: row;
+}
+
+.aw_logo_center {
+  top: 100%;
+  width: 60%;
+  height: 320px;
+  padding: 25px;
+}
+
+.carousel-inner > .item,
+.item.active,
+.item.active.left,
+.item.active.right {
+  position: fixed;
+  width: 100%;
+  left: 50%;
+  top: 20%;
+  font-size: 50px;
+  font-family: 'Awesome';
+  color: #012d28;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.719);
+  filter: drop-shadow(8px 8px 10px gray);
+  text-align: center;
+}
+
+.Carousel > .Carousel,
+.CarouselItem {
+  position: fixed;
+  width: 100%;
+  height: 500px;
+  /* left: 50%; */
+  top: 20%;
+  font-size: 50px;
+  font-family: 'Awesome';
+  color: #012d28;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.719);
+  filter: drop-shadow(8px 8px 10px gray);
+  text-align: center;
+}
+
+.Workplaces1 {
+  text-align: center;
+  font-size: 25px;
+  font-family: 'Awesome';
+  position: relative;
+  height: 500px;
+}
+
+.picture {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  top: 90%;
+}
+
+.Workplaces2 {
+  top: 50%;
+  font-size: 25px;
+  font-family: 'Awesome';
+}
+
+body,
+html {
+  font-family: 'Awesome';
+  height: 100%;
+  background-image: url('./Images//AW_image17_1200x600px.jpg');
+
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Information {
+  font-size: 22px;
+  text-align: right;
+  color: white;
+  padding: 28px;
+}
+.kaupunki {
+  color: #012d28;
+  font-size: 40px;
+  position: absolute;
+  top: 400px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.nimike {
+  position: absolute;
+  top: 240px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #049a78;
+  width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.bigger {
+  font-size: 200%;
+  color: rgb(5, 212, 142);
+}
+
+.logoStyle {
+  max-height: 210px;
+  min-height: 160px;
+  max-width: 500px;
+}
+
+/* <--Aikaisempia--> */
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +230,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
