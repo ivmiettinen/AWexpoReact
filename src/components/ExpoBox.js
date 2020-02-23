@@ -8,10 +8,14 @@ import DropdownMenu from '../components/DropdownMenu';
 import AutoComplete from '../components/AutoComplete';
 import SearchField from '../components/SearchField';
 
+import Dropdown from 'react-bootstrap/Dropdown';
+
 export class ExpoBox extends Component {
   state = {
     workplaces: [],
-    loading: true
+    loading: true,
+    noDuplicates: [],
+    selectedOption: []
   };
 
   fetchWorks = () => {
@@ -19,6 +23,7 @@ export class ExpoBox extends Component {
       .then(workplaces => {
         this.setState({ workplaces: workplaces });
         this.setState({ loading: !true });
+        this.filter();
       })
       .catch(error => {
         this.setState({ loading: !false });
@@ -30,21 +35,47 @@ export class ExpoBox extends Component {
     this.fetchWorks();
   }
 
+  filter = () => {
+    const copyWorkplaces = this.state.workplaces;
+
+    //Filtteröi kaupungit niin, että sama lokaatio ei ole objektissa kahta kertaa.
+    const noDuplicates = copyWorkplaces.filter(
+      (ele, ind) =>
+        ind ===
+        copyWorkplaces.findIndex(
+          elem => elem.Location === ele.Location && elem.id === ele.id
+        )
+    );
+    this.setState({ noDuplicates: noDuplicates });
+  };
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
+  handleLocationChange = e => {
+    // this.state.selectedOption.push(e);
+    this.setState({ selectedOption: e });
+
+    console.log('eeeee:', e);
+  };
+
   render() {
+    console.log('propseja2: ', this.state.noDuplicates);
+
     return (
       <div>
         <div className='sideByside'>
-          <DropdownMenu />
           <img
             src={upLeftPicture}
             alt='upLeftPicture'
             className='upRightPictureStyle'
           />
-          <SearchField workplaces={this.state.workplaces} />
+          <DropdownMenu
+            noDuplicates={this.state.noDuplicates}
+            addNew={this.handleLocationChange}
+          />
+          {/* <SearchField workplaces={this.state.workplaces} /> */}
         </div>
 
         {/* <AutoComplete
@@ -66,6 +97,7 @@ export class ExpoBox extends Component {
           search={this.state.search}
           loading={this.state.loading}
           suggestions={this.props.suggestions}
+          selectedOption={this.state.selectedOption}
         />
       </div>
     );

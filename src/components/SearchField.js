@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import '../App.css';
+// import React, { Component } from 'react';
+// import '../App.css';
 
-export class SearchField extends Component {
-  render() {
-    const propseja = this.props.workplaces;
+// export class SearchField extends Component {
+//   render() {
+//     const propseja = this.props.workplaces;
 
-    console.log(propseja);
+//     console.log(propseja);
 
-    return <div className='SearchField'></div>;
-  }
-}
+//     return <div className='SearchField'></div>;
+//   }
+// }
 
-export default SearchField;
+// export default SearchField;

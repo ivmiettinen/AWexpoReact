@@ -3,10 +3,23 @@
   src: url('./fonts/Awesome-Semibold.otf') format('opentype');
 }
 
-.DropdownMenu {
+.multiSelectContainer {
   padding: 20px;
   width: 25%;
   display: block;
+  color: green;
+}
+
+.multiSelectContainer > option {
+  color: green;
+}
+
+.Multiselect {
+  color: black;
+}
+
+.Multiselect > option {
+  color: green;
 }
 
 /* .AutoCompleteInput {

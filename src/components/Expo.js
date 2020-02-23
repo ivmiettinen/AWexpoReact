@@ -9,13 +9,26 @@ import DropdownMenu from './DropdownMenu';
 import '../App.css';
 
 export class Expo extends Component {
+  eventti = () => {
+    console.log('clog:', this.state.selectedOption);
+
+    // if (nextProps !== null) {
+    //   nextProps.map(city => {
+    //     console.log('IF:', city.Location);
+
+    //     return city.Location;
+    //   });
+    // }};
+  };
+
   constructor() {
     super();
     this.state = {
       search: '',
       indicators: false,
       controls: false,
-      fade: true
+      selectedOption: [],
+      waitingCities: true
     };
   }
 
@@ -23,10 +36,43 @@ export class Expo extends Component {
     this.setState({ search: event.target.value.substr(0, 20) });
   }
 
-  render() {
-    // let hoimoi = this.props.workplaces;
+  componentWillReceiveProps(nextProps) {
+    this.setState({ selectedOption: nextProps.selectedOption });
 
-    // console.log('hoimoi', hoimoi);
+    this.eventti();
+  }
+
+  render() {
+    let hoimoi = this.props.selectedOption;
+
+    if (hoimoi !== null) {
+      hoimoi.map(city => {
+        console.log('IF:', city.Location);
+
+        return city.Location;
+      });
+    }
+
+    // this.setState({ selectedOption: hoimoi });
+
+    // let candidates = this.handleTopCandidates();
+
+    console.log('hoimoi', hoimoi);
+
+    // hei();
+
+    // function hei() {
+    //   if (hoimoi !== null) {
+    //     hoimoi.map(city => {
+    //       return city.Location;
+    //     });
+    //   }
+    // }
+
+    // console.log('Hei', hei);
+    // if(hoimoi !== null)
+
+    // console.log('mapPickedLocations:', mapPickedLocations);
 
     //OnlyWithLogoFilter on apumuuttuja, joka filtteröi pois työpaikat,
     //joilla ei ole logoa näkyvissä.
@@ -42,6 +88,8 @@ export class Expo extends Component {
     let ExpoSuggestionsFilter = this.props.workplaces.filter(
       OnlyWithLogoFilter
     );
+
+    console.log('onlywithLogo:', ExpoSuggestionsFilter);
 
     let suggestionsMap = ExpoSuggestionsFilter.map(workplace => {
       return workplace.Location;
@@ -66,33 +114,20 @@ export class Expo extends Component {
       );
     });
 
-    // let suggestions = suggestions1.map(workplace => {
-    //   return workplace.Location;
-    // });
-
-    // console.log('Kokeilu:', suggestions);
-
-    //Roskaa:
-    // let mappingThrough = this.props.workplaces.map(workplace => {
-    //   return workplace;
-    // });
-    // console.log('mapping', mappingThrough);
-    // console.log('Foreachi:', foreachi);
-
     return (
       <div>
         <div className='sideByside'>
-          {/* <p className='DropdownMenu'>AutoComplete</p> */}
+          <p className='DropdownMenu'>AutoComplete</p>
 
-          {/* <DropdownMenu suggestions={onlyOneCity} />
-          <AutoComplete suggestions={onlyOneCity} /> */}
+          <DropdownMenu suggestions={onlyOneCity} />
+          <AutoComplete suggestions={onlyOneCity} />
         </div>
-        {/* <p>Vaihtaa heti:</p>
+        <p>Vaihtaa heti:</p>
         <input
           type='text'
           value={this.state.search}
           onChange={this.updateSearch.bind(this)}
-        /> */}
+        />
         {this.props.loading ? (
           <Carousel
             indicators={this.state.indicators}
