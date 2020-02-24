@@ -39,7 +39,13 @@ export class ExpoBox extends Component {
   }
 
   filter = () => {
-    const copyWorkplaces = this.state.workplaces;
+    //filter off workplaces without logoAbsoluteUrl
+
+    const copyWorkplaces = this.state.workplaces
+      .concat()
+      .filter(workplace => workplace.LogoAbsoluteUrl !== '');
+
+    console.log(copyWorkplaces);
 
     //Filtteröi kaupungit niin, että sama lokaatio ei ole objektissa kahta kertaa.
     const noDuplicates = copyWorkplaces.filter(
