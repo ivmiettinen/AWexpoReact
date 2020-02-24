@@ -10,12 +10,15 @@ import SearchField from '../components/SearchField';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 
+// import ExpoHandler from '../components/ExpoHandler';
+
 export class ExpoBox extends Component {
   state = {
     workplaces: [],
     loading: true,
     noDuplicates: [],
-    selectedOption: []
+    selectedOption: [],
+    waitingCities: true
   };
 
   fetchWorks = () => {
@@ -63,6 +66,30 @@ export class ExpoBox extends Component {
   render() {
     console.log('propseja2: ', this.state.noDuplicates);
 
+    // if (this.state.selectedOption !== null) {
+    //   let onlyLocation1 = [...this.state.selectedOption];
+    //   let onlyLocation2 = onlyLocation1.map(lokaatio => {
+    //     console.log('onkoArray:', onlyLocation2);
+    //     return lokaatio.Location;
+    //   });
+    // } else {
+    //   return [];
+    // }
+
+    // let funktio2 = () => {
+    //   if (this.state.selectedOption !== null) {
+    //     let concat = this.state.selectedOption.concat();
+    //     let mappi = concat.map(param => {
+    //       console.log('mappi:', mappi);
+    //       return param.Location;
+    //     });
+    //   } else {
+    //     return [];
+    //   }
+    // };
+
+    // let funktio = funktio2;
+
     return (
       <div>
         <div className='sideByside'>
@@ -92,6 +119,7 @@ export class ExpoBox extends Component {
             'Wetlands'
           ]}
         /> */}
+
         <Expo
           workplaces={this.state.workplaces}
           search={this.state.search}
@@ -99,6 +127,14 @@ export class ExpoBox extends Component {
           suggestions={this.props.suggestions}
           selectedOption={this.state.selectedOption}
         />
+        {/* 
+        <ExpoHandler
+          workplaces={this.state.workplaces}
+          search={this.state.search}
+          loading={this.state.loading}
+          suggestions={this.props.suggestions}
+          selectedOption={this.state.selectedOption}
+        /> */}
       </div>
     );
   }

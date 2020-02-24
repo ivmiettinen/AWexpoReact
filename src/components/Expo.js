@@ -9,26 +9,15 @@ import DropdownMenu from './DropdownMenu';
 import '../App.css';
 
 export class Expo extends Component {
-  eventti = () => {
-    console.log('clog:', this.state.selectedOption);
-
-    // if (nextProps !== null) {
-    //   nextProps.map(city => {
-    //     console.log('IF:', city.Location);
-
-    //     return city.Location;
-    //   });
-    // }};
-  };
-
   constructor() {
     super();
     this.state = {
       search: '',
       indicators: false,
       controls: false,
-      selectedOption: [],
-      waitingCities: true
+      selectedOption: '',
+      waitingCities: true,
+      waitingLoading: true
     };
   }
 
@@ -41,6 +30,18 @@ export class Expo extends Component {
 
     this.eventti();
   }
+
+  eventti = () => {
+    console.log('clog:', this.state.selectedOption);
+
+    // if (nextProps !== null) {
+    //   nextProps.map(city => {
+    //     console.log('IF:', city.Location);
+
+    //     return city.Location;
+    //   });
+    // }};
+  };
 
   render() {
     let hoimoi = this.props.selectedOption;
@@ -97,6 +98,9 @@ export class Expo extends Component {
 
     console.log('suggestionsMap:', suggestionsMap);
 
+    //Palauttaa DropDownMenulle arrayn, joka sisältää vain
+    //yhden kuvallisen(url-osoitteen) sisältävän kaupungin.
+
     let onlyOneCity = Array.from(new Set(suggestionsMap));
 
     console.log('onlyOneCity', onlyOneCity);
@@ -104,7 +108,17 @@ export class Expo extends Component {
     //FilteredContacts filtteröi työpaikat halutun kaupungin
     //mukaan.
 
-    // console.log('onkoArray:', filterprops);
+    // let onlyLocation2 = this.state.selectedOption.map(lokaatio => {
+    //   console.log('onkoArray:', onlyLocation2);
+    //   return lokaatio.Location;
+    // });
+
+    // console.log(
+    //   'onkoArray:',
+    //   this.state.selectedOption.map(lokaatio => {
+    //     return lokaatio.Location;
+    //   })
+    // );
 
     let filteredContacts = ExpoSuggestionsFilter.filter(workplace => {
       return (
@@ -120,7 +134,7 @@ export class Expo extends Component {
           <p className='DropdownMenu'>AutoComplete</p>
 
           <DropdownMenu suggestions={onlyOneCity} />
-          <AutoComplete suggestions={onlyOneCity} />
+          {/* <AutoComplete suggestions={onlyOneCity} /> */}
         </div>
         <p>Vaihtaa heti:</p>
         <input

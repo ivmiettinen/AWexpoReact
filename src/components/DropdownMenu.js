@@ -40,8 +40,14 @@ export class DropdownMenu extends Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
 
-    //Gives props to ExpoBox
-    this.props.addNew(selectedOption);
+    if (selectedOption !== null) {
+      let para2 = selectedOption.map(param => {
+        return param.Location;
+      });
+      this.props.addNew(para2);
+    } else {
+      this.props.addNew([]);
+    }
   };
 
   propsit = props => {
