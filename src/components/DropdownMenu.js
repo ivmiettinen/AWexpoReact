@@ -2,20 +2,52 @@ import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../App.css';
 
-// import AutoComplete from './AutoComplete';
-import { Button } from 'reactstrap';
-// import ms from '../multiselect.component.css';
-
-// import { Multiselect } from 'multiselect-react-dropdown';
-
-// const selectStyle = {
-//   width: '200px'
-// };
-
 import Select from 'react-select';
-import { css } from 'emotion';
 
-const colorStyles = { backgroundColor: 'red' };
+const styleForButton = {
+  boxShadow: 'none',
+  color: 'white',
+  fontFamily: 'Awesome'
+};
+
+const styleForReactSelect = {
+  placeholder: defaultStyles => {
+    return {
+      ...defaultStyles,
+      color: '#white'
+    };
+  },
+
+  control: (base, state) => ({
+    ...base,
+    background: 'rgb(5, 212, 142)',
+    // match with the menu
+    borderRadius: state.isFocused ? '3px 3px 0 0' : 3,
+    // Overwrittes the different states of border
+    borderColor: state.isFocused ? 'white' : 'lightyellow',
+    // Removes weird border around container
+    boxShadow: state.isFocused ? null : null,
+    '&:hover': {
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ? 'white' : 'lightyellow'
+    }
+  }),
+  menu: base => ({
+    ...base,
+    // override border radius to match the box
+    borderRadius: 0,
+    // kill the gap
+    marginTop: 0,
+    background: 'green'
+  }),
+  menuList: base => ({
+    ...base,
+    // kill the white space on first and last option
+    padding: 0,
+    background: '#049a78',
+    color: 'white'
+  })
+};
 
 export class DropdownMenu extends Component {
   constructor(props) {
@@ -23,11 +55,6 @@ export class DropdownMenu extends Component {
 
     // console.log(this.props);
     this.state = {
-      options: [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ],
       selectedOption: null
     };
   }
@@ -37,14 +64,16 @@ export class DropdownMenu extends Component {
   // }
 
   handleLocationChange = selectedOption => {
+    console.log('props editointi:', this.props.waitingOptions);
+
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
 
     if (selectedOption !== null) {
-      let para2 = selectedOption.map(param => {
+      const userChoice = selectedOption.map(param => {
         return param.Location;
       });
-      this.props.addNew(para2);
+      this.props.addNew(userChoice);
     } else {
       this.props.addNew([]);
     }
@@ -56,39 +85,13 @@ export class DropdownMenu extends Component {
 
   render() {
     const { selectedOption } = this.state;
-    // let propsit = this.props;
-
-    // const noDuplicates = this.props.noDuplicates;
-
-    // console.log(noDuplicates);
-
-    // let propseja2 = propseja.filter(
-    //   (ele, ind) =>
-    //     ind ===
-    //     propseja.findIndex(
-    //       elem => elem.Location === ele.Location && elem.id === ele.id
-    //     )
-    // );
-
-    // let pp = propseja.filter(
-    //   (ele, ind) =>
-    //     ind ===
-    //     propseja.findIndex(
-    //       elem => elem.Location === ele.Location && elem.id === ele.id
-    //     )
-    // );
-    // console.log(pp);
-
-    // console.log('propsit:', propsit);
-
-    // onClick={this.}
 
     return (
       <div className='multiSelectContainer '>
         <Dropdown>
           <Dropdown.Toggle
-            variant='success'
-            id='dropdown-basic'
+            style={styleForButton}
+            variant='yellow'
             className='DropdownToggle'
           >
             Hakuehdot
@@ -100,21 +103,17 @@ export class DropdownMenu extends Component {
               href='#/action-1'
             ></Dropdown.Item>
             <Select
+              styles={styleForReactSelect}
               value={selectedOption}
               onChange={this.handleLocationChange}
               isMulti
               isSearchable
               placeholder='Write or pick'
-              styles={colorStyles}
               // options={this.state.options}
               options={this.props.noDuplicates}
               getOptionLabel={option => option.Location}
               getOptionValue={option => option.Location}
             />
-            {/* <Button
-                className='DropdownmenusButton'
-                onClick={this.select}
-              ></Button> */}
 
             <Dropdown.Item className='DropdownItem' href='#/action-2'>
               Another action

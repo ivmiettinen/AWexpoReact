@@ -17,131 +17,31 @@ export class Expo extends Component {
       controls: false,
       selectedOption: '',
       waitingCities: true,
-      waitingLoading: true
+      waitingLoading: true,
+      noDuplicates: '',
+      logoWorkplaces: ''
     };
-  }
-
-  updateSearch(event) {
-    this.setState({ search: event.target.value.substr(0, 20) });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ selectedOption: nextProps.selectedOption });
-
-    this.eventti();
   }
 
-  eventti = () => {
-    console.log('clog:', this.state.selectedOption);
-
-    // if (nextProps !== null) {
-    //   nextProps.map(city => {
-    //     console.log('IF:', city.Location);
-
-    //     return city.Location;
-    //   });
-    // }};
-  };
-
   render() {
-    let hoimoi = this.props.selectedOption;
+    //Gives parameters for Carousel. Parameters are based on user selections.
+    const copyOfSelected = [...this.props.selectedOption];
+    const copyOfLogoWorks = [...this.props.logoWorkplaces];
 
-    if (hoimoi !== null) {
-      hoimoi.map(city => {
-        console.log('IF:', city.Location);
-
-        return city.Location;
-      });
-    }
-
-    // this.setState({ selectedOption: hoimoi });
-
-    // let candidates = this.handleTopCandidates();
-
-    console.log('hoimoi', hoimoi);
-
-    // hei();
-
-    // function hei() {
-    //   if (hoimoi !== null) {
-    //     hoimoi.map(city => {
-    //       return city.Location;
-    //     });
-    //   }
-    // }
-
-    // console.log('Hei', hei);
-    // if(hoimoi !== null)
-
-    // console.log('mapPickedLocations:', mapPickedLocations);
-
-    //OnlyWithLogoFilter on apumuuttuja, joka filtteröi pois työpaikat,
-    //joilla ei ole logoa näkyvissä.
-
-    let OnlyWithLogoFilter = workplace => {
-      if (workplace.LogoAbsoluteUrl !== '') {
-        return workplace;
-      }
-    };
-
-    //let props suorittaa itse filtteröinnin.
-
-    let ExpoSuggestionsFilter = this.props.workplaces.filter(
-      OnlyWithLogoFilter
+    const filterForUserOptions = copyOfLogoWorks.filter(selection =>
+      selection.Location.split(' ').some(location =>
+        copyOfSelected.includes(location)
+      )
     );
 
-    console.log('onlywithLogo:', ExpoSuggestionsFilter);
-
-    let suggestionsMap = ExpoSuggestionsFilter.map(workplace => {
-      return workplace.Location;
-    });
-
-    console.log('suggestionsMap:', suggestionsMap);
-
-    //Palauttaa DropDownMenulle arrayn, joka sisältää vain
-    //yhden kuvallisen(url-osoitteen) sisältävän kaupungin.
-
-    let onlyOneCity = Array.from(new Set(suggestionsMap));
-
-    console.log('onlyOneCity', onlyOneCity);
-
-    //FilteredContacts filtteröi työpaikat halutun kaupungin
-    //mukaan.
-
-    // let onlyLocation2 = this.state.selectedOption.map(lokaatio => {
-    //   console.log('onkoArray:', onlyLocation2);
-    //   return lokaatio.Location;
-    // });
-
-    // console.log(
-    //   'onkoArray:',
-    //   this.state.selectedOption.map(lokaatio => {
-    //     return lokaatio.Location;
-    //   })
-    // );
-
-    let filteredContacts = ExpoSuggestionsFilter.filter(workplace => {
-      return (
-        workplace.Location.toLowerCase().indexOf(
-          this.state.search.toLocaleLowerCase()
-        ) !== -1
-      );
-    });
+    console.log('filterForUserOptions', filterForUserOptions);
 
     return (
       <div>
-        <div className='sideByside'>
-          <p className='DropdownMenu'>AutoComplete</p>
-
-          <DropdownMenu suggestions={onlyOneCity} />
-          {/* <AutoComplete suggestions={onlyOneCity} /> */}
-        </div>
-        <p>Vaihtaa heti:</p>
-        <input
-          type='text'
-          value={this.state.search}
-          onChange={this.updateSearch.bind(this)}
-        />
         {this.props.loading ? (
           <Carousel
             indicators={this.state.indicators}
@@ -169,7 +69,7 @@ export class Expo extends Component {
                 className='aw_logo_center'
               ></img>
             </Carousel.Item>
-            {filteredContacts.map(workplace => {
+            {filterForUserOptions.map(workplace => {
               return (
                 <Carousel.Item
                   className='CarouselItem'
@@ -187,7 +87,6 @@ export class Expo extends Component {
                 </Carousel.Item>
               );
             })}
-            ;
           </Carousel>
         )}
       </div>

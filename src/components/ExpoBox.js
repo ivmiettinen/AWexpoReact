@@ -18,7 +18,9 @@ export class ExpoBox extends Component {
     loading: true,
     noDuplicates: [],
     selectedOption: [],
-    waitingCities: true
+    logoWorkplaces: [],
+    workplacesNumber: '',
+    waitingOptions: true
   };
 
   fetchWorks = () => {
@@ -41,13 +43,16 @@ export class ExpoBox extends Component {
   filter = () => {
     //filter off workplaces without logoAbsoluteUrl
 
-    const copyWorkplaces = this.state.workplaces
-      .concat()
-      .filter(workplace => workplace.LogoAbsoluteUrl !== '');
+    const copyWorkplaces = [...this.state.workplaces].filter(
+      workplace => workplace.LogoAbsoluteUrl !== ''
+    );
+
+    this.setState({ logoWorkplaces: copyWorkplaces });
 
     console.log(copyWorkplaces);
 
-    //Filtteröi kaupungit niin, että sama lokaatio ei ole objektissa kahta kertaa.
+    //Filters the cities so, that the same location does not appear twice inside object
+
     const noDuplicates = copyWorkplaces.filter(
       (ele, ind) =>
         ind ===
@@ -58,44 +63,53 @@ export class ExpoBox extends Component {
     this.setState({ noDuplicates: noDuplicates });
   };
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
   handleLocationChange = e => {
     // this.state.selectedOption.push(e);
-    this.setState({ selectedOption: e });
+
+    if (e !== []) {
+      this.setState({ selectedOption: e, waitingOptions: !true });
+    }
+    // else if (e === []) {
+    //   this.setState({ waitingOptions: !false });
+    // } else {
+    //   this.setState({ waitingOptions: !false });
+    // }
 
     console.log('eeeee:', e);
   };
 
+  waitingForm = () => {
+    return (
+      <div className='waitingFormClass'>
+        Valitse haluamasi kaupungit vasemmalta hakuehdoista ja karuselli
+        käynnistyy
+      </div>
+    );
+  };
+
+  showSearchResults = () => {
+    const copyOfWorkplaces = [...this.state.workplaces];
+    const copyOfSelected = [...this.state.selectedOption];
+
+    //Informs sum of open workplaces based on user selections.
+    const allWorkplaces = copyOfWorkplaces.filter(selection =>
+      selection.Location.split(' ').some(location =>
+        copyOfSelected.includes(location)
+      )
+    );
+
+    console.log('allWorkplaces', allWorkplaces.length);
+
+    return (
+      <div className='showSearchResultsClass'>
+        Meillä on avoinna yhteensä
+        <span className='allWorkplacesNumber'>{allWorkplaces.length}</span>
+        työpaikkaa.
+      </div>
+    );
+  };
+
   render() {
-    console.log('propseja2: ', this.state.noDuplicates);
-
-    // if (this.state.selectedOption !== null) {
-    //   let onlyLocation1 = [...this.state.selectedOption];
-    //   let onlyLocation2 = onlyLocation1.map(lokaatio => {
-    //     console.log('onkoArray:', onlyLocation2);
-    //     return lokaatio.Location;
-    //   });
-    // } else {
-    //   return [];
-    // }
-
-    // let funktio2 = () => {
-    //   if (this.state.selectedOption !== null) {
-    //     let concat = this.state.selectedOption.concat();
-    //     let mappi = concat.map(param => {
-    //       console.log('mappi:', mappi);
-    //       return param.Location;
-    //     });
-    //   } else {
-    //     return [];
-    //   }
-    // };
-
-    // let funktio = funktio2;
-
     return (
       <div>
         <div className='sideByside'>
@@ -107,24 +121,14 @@ export class ExpoBox extends Component {
           <DropdownMenu
             noDuplicates={this.state.noDuplicates}
             addNew={this.handleLocationChange}
+            workplaces={this.state.workplaces}
+            selectedOption={this.state.selectedOption}
+            waitingOptions={this.state.waitingOptions}
           />
-          {/* <SearchField workplaces={this.state.workplaces} /> */}
+          {this.state.waitingOptions
+            ? this.waitingForm()
+            : this.showSearchResults()}
         </div>
-
-        {/* <AutoComplete
-          suggestions={[
-            'Alligator',
-            'Bask',
-            'Crocodilian',
-            'Death Roll',
-            'Eggs',
-            'Jaws',
-            'Reptile',
-            'Solitary',
-            'Tail',
-            'Wetlands'
-          ]}
-        /> */}
 
         <Expo
           workplaces={this.state.workplaces}
@@ -132,15 +136,9 @@ export class ExpoBox extends Component {
           loading={this.state.loading}
           suggestions={this.props.suggestions}
           selectedOption={this.state.selectedOption}
+          noDuplicates={this.state.noDuplicates}
+          logoWorkplaces={this.state.logoWorkplaces}
         />
-        {/* 
-        <ExpoHandler
-          workplaces={this.state.workplaces}
-          search={this.state.search}
-          loading={this.state.loading}
-          suggestions={this.props.suggestions}
-          selectedOption={this.state.selectedOption}
-        /> */}
       </div>
     );
   }

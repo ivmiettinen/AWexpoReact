@@ -2,6 +2,44 @@
   font-family: 'Awesome';
   src: url('./fonts/Awesome-Semibold.otf') format('opentype');
 }
+.waitingFormClass {
+  -webkit-transition: text-shadow 1s linear;
+  -moz-transition: text-shadow 1s linear;
+  -ms-transition: text-shadow 1s linear;
+  -o-transition: text-shadow 1s linear;
+  transition: text-shadow 1s linear;
+}
+.waitingFormClass:hover,
+.waitingFormClass.glow {
+  text-shadow: 0 0 10px red;
+}
+
+.showSearchResultsClass {
+  color: rgb(5, 212, 142);
+  text-align: center;
+  left: 50%;
+  font-size: 26px;
+  padding: 24px;
+}
+
+.waitingFormClass {
+  color: white;
+  text-align: center;
+  left: 50%;
+  font-size: 26px;
+  padding: 24px;
+  width: 40%;
+  text-shadow: 1px 1px 2px black, 0 0 25px lightgreen, 0 0 5px darkgreen;
+  font-family: 'Awesome';
+}
+
+.allWorkplacesNumber {
+  font-size: 22px;
+  text-align: right;
+  color: white;
+  padding: 28px;
+  font-size: 32px;
+}
 
 .multiSelectContainer {
   padding: 20px;
@@ -71,6 +109,7 @@ DropdownMenu */
 .DropdownToggle {
   color: white;
   background-color: #049a78;
+  font-family: 'Awesome';
 }
 
 .DropdownToggle:hover {
