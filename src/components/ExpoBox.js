@@ -80,6 +80,7 @@ export class ExpoBox extends Component {
     const copyOfSelected = [...this.state.selectedOption];
 
     //Informs sum of open workplaces based on user selections.
+    //
     const allWorkplaces = copyOfWorkplaces.filter(selection =>
       selection.Location.split(' ').some(location =>
         copyOfSelected.includes(location)
