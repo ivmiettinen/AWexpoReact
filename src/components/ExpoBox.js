@@ -42,7 +42,7 @@ export class ExpoBox extends Component {
     );
 
     this.setState({ logoWorkplaces: copyWorkplaces });
-    console.log(copyWorkplaces);
+    // console.log(copyWorkplaces);
 
     //Filters the cities so, that the same location does not appear twice inside object
     //and sort them.
