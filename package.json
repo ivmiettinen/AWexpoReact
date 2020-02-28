@@ -11,6 +11,7 @@
     "chroma-js": "^2.1.0",
     "emotion": "^10.0.27",
     "multiselect-react-dropdown": "^1.4.7",
+    "qrcode.react": "^1.0.0",
     "react": "^16.12.0",
     "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^1.0.0-beta.16",

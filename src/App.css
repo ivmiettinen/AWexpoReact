@@ -2,6 +2,26 @@
   font-family: 'Awesome';
   src: url('./fonts/Awesome-Semibold.otf') format('opentype');
 }
+
+.qrCode {
+  padding: 25px;
+  top: 100%;
+  height: 4em;
+  vertical-align: middle;
+}
+
+.qrCodeCheckbox {
+  padding: 2px;
+
+  height: 2, 5em;
+  vertical-align: middle;
+}
+
+.qrCodeCheckbox:hover {
+  background-color: rgb(5, 212, 142);
+  color: 'green';
+}
+
 .waitingFormClass {
   -webkit-transition: text-shadow 1s linear;
   -moz-transition: text-shadow 1s linear;
@@ -102,7 +122,18 @@ DropdownMenu */
   background-color: #049a78;
 }
 
+.DropdownItem {
+  color: white;
+  background-color: #049a78;
+}
+
 .DropdownItem:hover {
+  color: 'green';
+  background-color: rgb(5, 212, 142);
+}
+
+.dropdown-item:hover {
+  color: 'green';
   background-color: rgb(5, 212, 142);
 }
 
@@ -114,11 +145,6 @@ DropdownMenu */
 
 .DropdownToggle:hover {
   background-color: rgb(5, 212, 142);
-}
-
-.DropdownItem {
-  color: white;
-  background-color: #049a78;
 }
 
 .sideByside {
@@ -242,44 +268,3 @@ html {
   min-height: 160px;
   max-width: 500px;
 }
-
-/* <--Aikaisempia--> */
-
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

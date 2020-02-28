@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { getWorkData } from '../serviceClient/ExpoService';
-import Expo from './Expo';
+import ExpoCarousel from './ExpoCarousel';
 
 import upLeftPicture from '../Images/AW_logo_main_version_RGB.png';
 import '../App.css';
 import DropdownMenu from '../components/DropdownMenu';
-import AutoComplete from '../components/AutoComplete';
-import SearchField from '../components/SearchField';
-
-import Dropdown from 'react-bootstrap/Dropdown';
-
-// import ExpoHandler from '../components/ExpoHandler';
 
 export class ExpoBox extends Component {
   state = {
@@ -19,8 +13,8 @@ export class ExpoBox extends Component {
     noDuplicates: [],
     selectedOption: [],
     logoWorkplaces: [],
-    workplacesNumber: '',
-    waitingOptions: true
+    waitingOptions: true,
+    qrCodeCheck: true
   };
 
   fetchWorks = () => {
@@ -28,7 +22,7 @@ export class ExpoBox extends Component {
       .then(workplaces => {
         this.setState({ workplaces: workplaces });
         this.setState({ loading: !true });
-        this.filter();
+        this.filterOptions();
       })
       .catch(error => {
         this.setState({ loading: !false });
@@ -40,7 +34,7 @@ export class ExpoBox extends Component {
     this.fetchWorks();
   }
 
-  filter = () => {
+  filterOptions = () => {
     //filter off workplaces without logoAbsoluteUrl
 
     const copyWorkplaces = [...this.state.workplaces].filter(
@@ -48,34 +42,26 @@ export class ExpoBox extends Component {
     );
 
     this.setState({ logoWorkplaces: copyWorkplaces });
-
     console.log(copyWorkplaces);
 
     //Filters the cities so, that the same location does not appear twice inside object
+    //and sort them.
 
-    const noDuplicates = copyWorkplaces.filter(
-      (ele, ind) =>
-        ind ===
-        copyWorkplaces.findIndex(
-          elem => elem.Location === ele.Location && elem.id === ele.id
-        )
-    );
+    const noDuplicates = copyWorkplaces
+      .filter(
+        (ele, ind) =>
+          ind ===
+          copyWorkplaces.findIndex(
+            elem => elem.Location === ele.Location && elem.id === ele.id
+          )
+      )
+      .sort((a, b) => (a.Location > b.Location ? 1 : -1));
+
     this.setState({ noDuplicates: noDuplicates });
   };
 
-  handleLocationChange = e => {
-    // this.state.selectedOption.push(e);
-
-    if (e !== []) {
-      this.setState({ selectedOption: e, waitingOptions: !true });
-    }
-    // else if (e === []) {
-    //   this.setState({ waitingOptions: !false });
-    // } else {
-    //   this.setState({ waitingOptions: !false });
-    // }
-
-    console.log('eeeee:', e);
+  handleLocationChange = event => {
+    this.setState({ selectedOption: event, waitingOptions: !true });
   };
 
   waitingForm = () => {
@@ -98,8 +84,6 @@ export class ExpoBox extends Component {
       )
     );
 
-    console.log('allWorkplaces', allWorkplaces.length);
-
     return (
       <div className='showSearchResultsClass'>
         Meillä on avoinna yhteensä
@@ -107,6 +91,10 @@ export class ExpoBox extends Component {
         työpaikkaa.
       </div>
     );
+  };
+
+  handleQRcodeChange = event => {
+    this.setState({ qrCodeCheck: JSON.parse(event.target.value) });
   };
 
   render() {
@@ -124,20 +112,20 @@ export class ExpoBox extends Component {
             workplaces={this.state.workplaces}
             selectedOption={this.state.selectedOption}
             waitingOptions={this.state.waitingOptions}
+            qrCodeCheck={this.state.qrCodeCheck}
+            handleQRcodeChange={this.handleQRcodeChange}
           />
           {this.state.waitingOptions
             ? this.waitingForm()
             : this.showSearchResults()}
         </div>
 
-        <Expo
+        <ExpoCarousel
           workplaces={this.state.workplaces}
-          search={this.state.search}
           loading={this.state.loading}
-          suggestions={this.props.suggestions}
           selectedOption={this.state.selectedOption}
-          noDuplicates={this.state.noDuplicates}
           logoWorkplaces={this.state.logoWorkplaces}
+          qrCodeCheck={this.state.qrCodeCheck}
         />
       </div>
     );

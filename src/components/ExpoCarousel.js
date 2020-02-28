@@ -1,49 +1,116 @@
-// import React, { Component, useState } from 'react';
-// import Carousel from 'react-bootstrap/Carousel';
+import React, { Component } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import mainPicture from '../Images/AW_logo_main_version_RGB.png';
+import '../App.css';
 
-// export default function ControlledCarousel() {
-//   const [index, setIndex] = useState(0);
-//   const [direction, setDirection] = useState(null);
+export class ExpoCarousel extends Component {
+  constructor() {
+    super();
+    this.state = {
+      indicators: false,
+      controls: false,
+      selectedOption: '',
+      waitingCities: true,
+      waitingLoading: true
+    };
+  }
 
-//   const handleSelect = (selectedIndex, e) => {
-//     setIndex(selectedIndex);
-//     setDirection(e.direction);
-//   };
+  showOnlyCarouselLogo = () => {
+    return (
+      <Carousel
+        indicators={this.state.indicators}
+        controls={this.state.controls}
+        fade={this.state.fade}
+      >
+        <Carousel.Item className='CarouselItem'>
+          <img src={mainPicture} alt='logo' className='aw_logo_center'></img>
+        </Carousel.Item>
+      </Carousel>
+    );
+  };
 
-//   //   let hoi = props;
+  carouselOptions = () => {
+    //Gives parameters for Carousel. Parameters are based on user selections.
+    const copyOfSelected = [...this.props.selectedOption];
+    const copyOfLogoWorks = [...this.props.logoWorkplaces];
 
-//   //   console.log('hoi:', hoi);
+    const filterForUserOptions = copyOfLogoWorks.filter(selection =>
+      selection.Location.split(' ').some(location =>
+        copyOfSelected.includes(location)
+      )
+    );
 
-//   return (
-//     <div></div>
-//     // <Carousel activeIndex={index} direction={direction} onSelect={handleSelect}>
-//     //   <Carousel.Item></Carousel.Item>
-//     //   <Carousel.Item>
-//     //     <img
-//     //       className='d-block w-100'
-//     //       src='holder.js/800x400?text=Second slide&bg=282c34'
-//     //       alt='Second slide'
-//     //     />
+    var QRCode = require('qrcode.react');
 
-//     //     <Carousel.Caption>
-//     //       <h3>Second slide label</h3>
-//     //       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-//     //     </Carousel.Caption>
-//     //   </Carousel.Item>
-//     //   <Carousel.Item>
-//     //     <img
-//     //       className='d-block w-100'
-//     //       src='holder.js/800x400?text=Third slide&bg=20232a'
-//     //       alt='Third slide'
-//     //     />
+    // const downloadQR = () => {
+    //   const canvas = document.getElementById('123456');
+    //   const pngUrl = canvas
+    //     .toDataURL('image/png')
+    //     .replace('image/png', 'image/octet-stream');
+    //   let downloadLink = document.createElement('a');
+    //   downloadLink.href = pngUrl;
+    //   downloadLink.download = '123456.png';
+    //   document.body.appendChild(downloadLink);
+    //   downloadLink.click();
+    //   document.body.removeChild(downloadLink);
+    // };
 
-//     //     <Carousel.Caption>
-//     //       <h3>Third slide label</h3>
-//     //       <p>
-//     //         Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-//     //       </p>
-//     //     </Carousel.Caption>
-//     //   </Carousel.Item>
-//     // </Carousel>
-//   );
-// }
+    return (
+      <Carousel
+        className='Carousel'
+        indicators={this.state.indicators}
+        controls={this.state.controls}
+      >
+        <Carousel.Item className='CarouselItem'>
+          <img src={mainPicture} alt='logo' className='aw_logo_center'></img>
+        </Carousel.Item>
+        {filterForUserOptions.map(workplace => {
+          return (
+            <Carousel.Item
+              className='CarouselItem'
+              // style={carouselItemStyle}
+              key={workplace.AdvertId}
+            >
+              <div className='logo'>
+                <img
+                  src={workplace.LogoAbsoluteUrl}
+                  alt='companysLogo'
+                  className='logoStyle'
+                />
+              </div>
+              <div className='nimike'>
+                {workplace.Title}
+                {this.props.qrCodeCheck ? (
+                  <span className='qrCode'>
+                    <QRCode
+                      id='123456'
+                      value={workplace.Url}
+                      size={90}
+                      level={'H'}
+                      includeMargin={true}
+                    />
+                  </span>
+                ) : null}
+              </div>
+
+              <div className='kaupunki'>{workplace.Location}</div>
+              <div className='qrCode'></div>
+            </Carousel.Item>
+          );
+        })}
+      </Carousel>
+    );
+  };
+
+  render() {
+    return (
+      <div>
+        {this.props.loading
+          ? this.showOnlyCarouselLogo()
+          : this.carouselOptions()}
+      </div>
+    );
+  }
+}
+
+export default ExpoCarousel;
