@@ -67,8 +67,10 @@ export class ExpoBox extends Component {
   waitingForm = () => {
     return (
       <div className='waitingFormClass'>
-        Valitse haluamasi kaupungit vasemmalta hakuehdoista ja karuselli
-        käynnistyy
+        <p>
+          Valitse haluamasi kaupungit vasemmalta hakuehdoista ja karuselli
+          käynnistyy
+        </p>
       </div>
     );
   };
@@ -86,9 +88,11 @@ export class ExpoBox extends Component {
 
     return (
       <div className='showSearchResultsClass'>
-        Meillä on avoinna yhteensä
-        <span className='allWorkplacesNumber'>{allWorkplaces.length}</span>
-        työpaikkaa.
+        <p>
+          Meillä on avoinna yhteensä
+          <span className='allWorkplacesNumber'>{allWorkplaces.length}</span>
+          työpaikkaa.
+        </p>
       </div>
     );
   };

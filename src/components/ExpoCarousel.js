@@ -9,9 +9,7 @@ export class ExpoCarousel extends Component {
     this.state = {
       indicators: false,
       controls: false,
-      selectedOption: '',
-      waitingCities: true,
-      waitingLoading: true
+      selectedOption: ''
     };
   }
 
@@ -31,6 +29,9 @@ export class ExpoCarousel extends Component {
 
   carouselOptions = () => {
     //Gives parameters for Carousel. Parameters are based on user selections.
+
+    let QRCode = require('qrcode.react');
+
     const copyOfSelected = [...this.props.selectedOption];
     const copyOfLogoWorks = [...this.props.logoWorkplaces];
 
@@ -39,21 +40,6 @@ export class ExpoCarousel extends Component {
         copyOfSelected.includes(location)
       )
     );
-
-    var QRCode = require('qrcode.react');
-
-    // const downloadQR = () => {
-    //   const canvas = document.getElementById('123456');
-    //   const pngUrl = canvas
-    //     .toDataURL('image/png')
-    //     .replace('image/png', 'image/octet-stream');
-    //   let downloadLink = document.createElement('a');
-    //   downloadLink.href = pngUrl;
-    //   downloadLink.download = '123456.png';
-    //   document.body.appendChild(downloadLink);
-    //   downloadLink.click();
-    //   document.body.removeChild(downloadLink);
-    // };
 
     return (
       <Carousel
@@ -83,7 +69,6 @@ export class ExpoCarousel extends Component {
                 {this.props.qrCodeCheck ? (
                   <span className='qrCode'>
                     <QRCode
-                      id='123456'
                       value={workplace.Url}
                       size={90}
                       level={'H'}
@@ -94,7 +79,6 @@ export class ExpoCarousel extends Component {
               </div>
 
               <div className='kaupunki'>{workplace.Location}</div>
-              <div className='qrCode'></div>
             </Carousel.Item>
           );
         })}

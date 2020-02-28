@@ -1,9 +1,11 @@
 const url = 'http://api.academicwork.net/api/adverts?country=fi';
 
-const proxyURL = 'http://localhost:8080/';
+const LocalProxyURL = 'http://localhost:8080/';
+
+const herokuProxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
 export const getWorkData = async () => {
-  return fetch(proxyURL + url).then(resp => resp.json());
+  return fetch(herokuProxyUrl + url).then(resp => resp.json());
 };
 
 export default getWorkData;
