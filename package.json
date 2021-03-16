@@ -21,12 +21,11 @@
     "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
     "reactstrap": "^8.4.1",
-    "serve": "^11.3.0"
+    "serve": "^11.3.2"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "react -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
