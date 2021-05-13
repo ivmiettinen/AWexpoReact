@@ -212,7 +212,6 @@ DropdownMenu */
 .picture {
   display: block;
   text-align: center;
-  vertical-align: middle;
   top: 90%;
 }
 
@@ -276,4 +275,10 @@ html {
   max-height: 210px;
   min-height: 160px;
   max-width: 500px;
+}
+
+.loader{
+  color: rgb(5, 212, 142);
+  text-align: center;
+  font-size: 26px;
 }

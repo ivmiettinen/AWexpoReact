@@ -14,7 +14,7 @@
 # misc
 .firebaserc
 .firebase
-.firebase.json
+firebase.json
 .DS_Store
 .env
 .env.local
