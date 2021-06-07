@@ -4,6 +4,6 @@ How to run the project:
 2.Run 'npm start'
 
 
-Firebase live version:
+Netlify live version:
 
-https://awexpo-80648.web.app/
+https://60bdcba76f016b00083f8e34--inspiring-swartz-47531c.netlify.app/
